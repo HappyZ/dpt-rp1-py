@@ -10,4 +10,6 @@
 
 const config = exports;
 
+// IMPORTANT: what does this do?
+// It seems no place else it is used
 config.DEVBUILD = false;
