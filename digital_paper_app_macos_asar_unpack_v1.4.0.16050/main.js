@@ -122,6 +122,8 @@ const LOG_COUNT_LIMIT = 10;
 ///////////////////////////////////
 
 // var debuggable = false;
+console.log('Debuggable: ' + DEVBUILD);
+console.log('__dirname: ' + __dirname);
 var debuggable = DEVBUILD;
 
 const DEBUGKEY =
@@ -138,16 +140,18 @@ const DEBUGKEY =
 try {
     const debugPhrase = fs.readFileSync(__dirname + '/debug');
     const userInfo = os.userInfo();
+    console.log('userInfo: ' + userInfo)
     // console.log('HOGE');
     const crypto = require('crypto');
     const userId = userInfo.username + '@' + os.hostname();
-    // console.log(userId);
+    console.log('userId: ' + userId);
     // console.log(crypto.publicDecrypt(DEBUGKEY, debugPhrase).toString());
-    if ( crypto.publicDecrypt(DEBUGKEY, debugPhrase).toString() === userId ) {
+    // if ( crypto.publicDecrypt(DEBUGKEY, debugPhrase).toString() === userId ) {
         console.log('Debuggable');
         debuggable = true;
-    }
+    // }
 } catch (e) {
+    console.log('debuggable info error: ' + e);
     // nothing
 }
 
@@ -172,7 +176,7 @@ var appOpts = {
     // logToFile: true,
     logToFile: DEVBUILD,
     logToConsole: DEVBUILD,
-    logLevel: 'warn',
+    logLevel: 'silly',
     // logLevel: 'error',
     errorLogging: true,
     // errorLogging: true,
@@ -525,6 +529,7 @@ if ( process.platform === 'win32' || process.platform === 'darwin' ) {
      * Path
      */
     process.env.MW_USER_DATA_DIR_PATH = app.getPath('appData') + MW_PATH_PREFIX;
+    console.log('user data dir: ' + process.env.MW_USER_DATA_DIR_PATH);
 
 
     /**
@@ -532,6 +537,8 @@ if ( process.platform === 'win32' || process.platform === 'darwin' ) {
      * Path
      */
     process.env.MW_LOG_FILE_DIR_PATH = app.getPath('appData') + MW_PATH_PREFIX + '/log';
+    // process.env.MW_LOG_FILE_DIR_PATH = "/var/log"
+    console.log('log file path: ' + process.env.MW_LOG_FILE_DIR_PATH);
 
 
     /**
@@ -539,18 +546,21 @@ if ( process.platform === 'win32' || process.platform === 'darwin' ) {
      * ディレクトリのPath
      */
     process.env.MW_UPDATER_DIR_PATH = app.getPath('appData') + MW_PATH_PREFIX_UPDATER;
+    console.log('updator dir path: ' + process.env.MW_UPDATER_DIR_PATH);
 
     /**
      * ユーザがダウンロードに利用するパス。OSで通常設定されているディレ
      * クトリを使う。
      */
     process.env.MW_DOWNLOADS_DIR_PATH = app.getPath('downloads')
+    console.log('downloads path: ' + process.env.MW_DOWNLOADS_DIR_PATH);
 
     /**
      * アプリケーションで一時的に使用されるファイルを格納するディレクトリ
      * アプリ終了時に中身はすべて削除される
      */
     process.env.MW_TEMPORARY_FILE_DIR_PATH = app.getPath('appData') + MW_PATH_PREFIX + '/temporary';
+    console.log('temporary file dir path: ' + process.env.MW_TEMPORARY_FILE_DIR_PATH);
 
     // /**
     //  * Applicationで、システムグローバルに共有する情報を保存するディレク

@@ -10,6 +10,6 @@
 
 const config = exports;
 
-// IMPORTANT: what does this do?
-// It seems no place else it is used
-config.DEVBUILD = false;
+// IMPORTANT: enable debugging mode
+// we enable this to get more info
+config.DEVBUILD = true;
